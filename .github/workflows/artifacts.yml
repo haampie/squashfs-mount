@@ -7,8 +7,13 @@ on: [push]
 jobs:
   rpm:
     runs-on: ubuntu-20.04
-    container: bcumming/bci-base-rpmbuilder:testing
+    container: registry.suse.com/bci/bci-base:15.4.27.8.3
     steps:
+      - name: setup dependencies
+        run: |
+          whoami
+          cat /etc/passwd
+          zypper install -y libmount-devel gcc make rpm-build git sudo
       - name: clone
         uses: actions/checkout@v2
       - name: build-srpm
